@@ -17,8 +17,8 @@ contract Factory {
         require(token != address(0));
         require(exchangeTemplate != address(0));
         require(tokenToExchange[token] != address(0));
-        
-        address exchange; // TODO: create_with_code_of(self.exchangeTemplate)
+
+        address exchange = address(new Exchange(token));
 
         uint256 tokenID = tokenCount + 1;
         tokenCount = tokenID;
