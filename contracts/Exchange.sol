@@ -39,8 +39,7 @@ contract Exchange {
         uint256 totalLiquidity = totalSupply;
         if (totalLiquidity > 0) {
             require(minLiquidity > 0);
-            // what is self.balance?
-            uint256 ethReserve = address(this).balance - msg.value; // TODO Double check this
+            uint256 ethReserve = address(this).balance - msg.value;
             uint256 tokenReserve = token.balanceOf(address(this));
             uint256 tokenAmount = msg.value * tokenReserve / (ethReserve + 1);
             uint256 liquidityMinted = msg.value * totalLiquidity / ethReserve;
