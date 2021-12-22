@@ -27,7 +27,7 @@ contract Factory {
         return exchange;
     } 
 
-    function getExchange(address token) public view returns (address) {
+    function getExchange(address token) external view returns (address) {
         return tokenToExchange[token];
     }
 

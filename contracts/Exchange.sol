@@ -122,6 +122,11 @@ contract Exchange {
         return ethToTokenInput(msg.value, minTokens, deadline, msg.sender, msg.sender);
     }
 
+    function ethToTokenTransferInput(uint256 minTokens, uint deadline, address recipient) public payable returns (uint256) {
+        require(recipient != address(this) && recipient != address(0));
+        return ethToTokenInput(msg.value, minTokens, deadline, msg.sender, recipient);
+    }
+
     function ethToTokenTranfserInput(uint256 minTokens, uint deadline, address recipient) public payable returns (uint256) {
         require(recipient != address(this));
         require(recipient != address(0));
@@ -210,7 +215,7 @@ contract Exchange {
         uint256 weiBought = ethBought * 10^18;
         require(weiBought >= minEthBought);
         require(token.transferFrom(buyer, address(this), tokensSold));
-        uint256 tokensBought = Exchange(exchangeAddr).ethToTokenTransferInput(minTokensBought, deadline, buyer, recipient, weiBought);
+        uint256 tokensBought = Exchange(payable(exchangeAddr)).ethToTokenTransferInput(minTokensBought, deadline, recipient);
         emit EthPurchase(buyer, tokensSold, weiBought);
         return tokensBought;
     } 
